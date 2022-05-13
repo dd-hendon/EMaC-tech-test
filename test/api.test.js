@@ -43,8 +43,8 @@ describe("Lizzo's Juicy Juice Bar", () => {
   });
 
   describe("GET /api/recipes:id", () => {
-    test("Responds with expected recipe given a recipe id", async () => {
-      const { body } = await request.get("/api/recipes/59");
+    test("Accepts parametric id to respond with given recipe", async () => {
+      const { body } = await request.get("/api/recipes/59").expect(200);
       expect(body.recipe).toEqual(
         expect.objectContaining({
           id: "recipe-59",
@@ -59,6 +59,10 @@ describe("Lizzo's Juicy Juice Bar", () => {
           ],
         })
       );
+    });
+    test("Responds with 404 and message if recipe ID out of range", async () => {
+      const { body } = await request.get("/api/recipes/59000").expect(404);
+      expect(body.message).toBe("Recipe not found");
     });
   });
 });

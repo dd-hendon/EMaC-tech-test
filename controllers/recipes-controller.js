@@ -6,7 +6,11 @@ exports.getRecipes = async (req, res) => {
 };
 
 exports.getRecipeById = async (req, res) => {
-  const id = req.params.id;
-  const recipe = await selectRecipeById(id);
-  res.status(200).send({ recipe });
+  try {
+    const id = req.params.id;
+    const recipe = await selectRecipeById(id);
+    res.status(200).send({ recipe });
+  } catch (error) {
+    res.status(404).send({ message: "Recipe not found" });
+  }
 };

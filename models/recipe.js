@@ -19,5 +19,9 @@ exports.selectRecipes = async (queries) => {
 exports.selectRecipeById = async (id) => {
   const file = await readFile("./data/data.json", "utf-8");
   const recipes = JSON.parse(file);
-  return recipes.find((recipe) => recipe.id === `recipe-${id}`);
+  const recipe = recipes.find((recipe) => recipe.id === `recipe-${id}`);
+  if (recipe === undefined) {
+    throw new Error();
+  }
+  return recipe;
 };
