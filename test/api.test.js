@@ -17,6 +17,19 @@ describe("Lizzo's Juicy Juice Bar", () => {
       const { body } = await request.get("/api/recipes").expect(200);
       expect(body.recipes).toHaveLength(data.length);
     });
+    test("Objects in array have expected properties", async () => {
+      const { body } = await request.get("/api/recipes").expect(200);
+      body.recipes.forEach((recipe) => {
+        expect(recipe).toEqual(
+          expect.objectContaining({
+            id: expect.any(String),
+            imageUrl: expect.any(String),
+            instructions: expect.any(String),
+            ingredients: expect.any(Object),
+          })
+        );
+      });
+    });
   });
 });
 
