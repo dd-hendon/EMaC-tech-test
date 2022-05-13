@@ -2,8 +2,8 @@ const { readFile } = require("fs/promises");
 
 exports.selectRecipes = async (queries) => {
   const { exclude_ingredients } = queries;
-  const recipesString = await readFile("./data/data.json", "utf-8");
-  const recipes = JSON.parse(recipesString);
+  const file = await readFile("./data/data.json", "utf-8");
+  const recipes = JSON.parse(file);
 
   if (exclude_ingredients) {
     const excluded = exclude_ingredients.split(",");
@@ -14,4 +14,10 @@ exports.selectRecipes = async (queries) => {
     });
   }
   return recipes;
+};
+
+exports.selectRecipeById = async (id) => {
+  const file = await readFile("./data/data.json", "utf-8");
+  const recipes = JSON.parse(file);
+  return recipes.find((recipe) => recipe.id === `recipe-${id}`);
 };

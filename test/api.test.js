@@ -41,4 +41,24 @@ describe("Lizzo's Juicy Juice Bar", () => {
       });
     });
   });
+
+  describe("GET /api/recipes:id", () => {
+    test("Responds with expected recipe given a recipe id", async () => {
+      const { body } = await request.get("/api/recipes/59");
+      expect(body.recipe).toEqual(
+        expect.objectContaining({
+          id: "recipe-59",
+          imageUrl: "http://www.images.com/18",
+          instructions:
+            "60 seconds on the highest setting your blender has, or until a smooth paste has formed",
+          ingredients: [
+            { name: "demerara sugar", grams: 25 },
+            { name: "flax", grams: 66 },
+            { name: "apple juice", grams: 44 },
+            { name: "oat milk", grams: 198 },
+          ],
+        })
+      );
+    });
+  });
 });
