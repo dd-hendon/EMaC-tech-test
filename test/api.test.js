@@ -30,10 +30,15 @@ describe("Lizzo's Juicy Juice Bar", () => {
         );
       });
     });
+    test("Accepts a query to exclude recipes", async () => {
+      const { body } = await request
+        .get("/api/recipes?exclude_ingredients=banana,flax")
+        .expect(200);
+      body.recipes.forEach((recipe) => {
+        const ingredients = recipe.ingredients.map((i) => i.name);
+        expect(ingredients).not.toContain("banana");
+        expect(ingredients).not.toContain("flax");
+      });
+    });
   });
 });
-
-// 1 - GET /api/recipes
-// Write a GET endpoint that responds with a list of all recipes.
-
-// Include a query (?exclude_ingredients=apples,bananas,carrots) to exclude recipes that contain specific ingredients.
