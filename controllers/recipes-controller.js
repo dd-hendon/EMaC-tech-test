@@ -1,4 +1,8 @@
-const { selectRecipes, selectRecipeById } = require("../models/recipe");
+const {
+  selectRecipes,
+  selectRecipeById,
+  createRecipe,
+} = require("../models/recipe");
 
 exports.getRecipes = async (req, res) => {
   try {
@@ -16,5 +20,15 @@ exports.getRecipeById = async (req, res) => {
     res.status(200).send({ recipe });
   } catch (error) {
     res.status(404).send({ message: "Recipe not found" });
+  }
+};
+
+exports.postRecipe = async (req, res) => {
+  try {
+    const id = await createRecipe(req.body);
+    console.log(id);
+    res.status(201).send({ id });
+  } catch (error) {
+    res.status(400).send({ message: "Invalid input" });
   }
 };

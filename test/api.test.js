@@ -80,9 +80,9 @@ describe("Lizzo's Juicy Juice Bar", () => {
         .post("/api/recipes")
         .send(newRecipe)
         .expect(201);
-      const recipeId = body.recipeId;
+      const id = body.id;
       const regex = /recipe-\d*/;
-      expect(recipeId).toEqual(expect.stringMatching(regex));
+      expect(id).toEqual(expect.stringMatching(regex));
     });
   });
 });
