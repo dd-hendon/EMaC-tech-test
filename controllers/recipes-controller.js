@@ -26,7 +26,6 @@ exports.getRecipeById = async (req, res) => {
 exports.postRecipe = async (req, res) => {
   try {
     const id = await createRecipe(req.body);
-    console.log(id);
     res.status(201).send({ id });
   } catch (error) {
     res.status(400).send({ message: "Invalid input" });
