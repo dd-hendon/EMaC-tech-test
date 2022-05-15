@@ -1,8 +1,12 @@
 const { selectRecipes, selectRecipeById } = require("../models/recipe");
 
 exports.getRecipes = async (req, res) => {
-  const recipes = await selectRecipes(req.query);
-  res.status(200).send({ recipes });
+  try {
+    const recipes = await selectRecipes(req.query);
+    res.status(200).send({ recipes });
+  } catch (error) {
+    res.status(500).send({ message: "Internal resource error" });
+  }
 };
 
 exports.getRecipeById = async (req, res) => {

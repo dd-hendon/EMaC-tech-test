@@ -13,6 +13,9 @@ exports.selectRecipes = async (queries) => {
       });
     });
   }
+  if (recipes === undefined) {
+    throw new Error();
+  }
   return recipes;
 };
 

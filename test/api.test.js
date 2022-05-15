@@ -65,4 +65,24 @@ describe("Lizzo's Juicy Juice Bar", () => {
       expect(body.message).toBe("Recipe not found");
     });
   });
+  describe("Post /api/recipes", () => {
+    test("Responds with a generated recipe id", async () => {
+      const newRecipe = {
+        imageUrl: "http://www.images.com/99",
+        instructions: "lorem ipsum",
+        ingredients: [
+          { name: "lorem", grams: 144 },
+          { name: "ipsum", grams: 120 },
+          { name: "dolor", grams: 122 },
+        ],
+      };
+      const { body } = await request
+        .post("/api/recipes")
+        .send(newRecipe)
+        .expect(201);
+      const recipeId = body.recipeId;
+      const regex = /recipe-\d*/;
+      expect(recipeId).toEqual(expect.stringMatching(regex));
+    });
+  });
 });
